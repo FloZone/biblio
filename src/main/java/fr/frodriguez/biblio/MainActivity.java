@@ -17,7 +17,7 @@ import fr.frodriguez.biblio.book.BookListActivity;
 import fr.frodriguez.biblio.format.FormatListActivity;
 import fr.frodriguez.biblio.serie.SerieListActivity;
 import fr.frodriguez.biblio.theme.ThemeListActivity;
-import fr.frodriguez.biblio.utils.Utils;
+import fr.frodriguez.library.utils.MessageUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.showSnackbar(view, "Surprise motherfucker !");
+                MessageUtils.showSnackbar(view, "Surprise motherfucker !");
             }
         });
     }
@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action1:
-                Utils.showToast(this, "Croustade");
+                MessageUtils.showToast(this, "Croustade");
                 return true;
             case R.id.action2:
-                Utils.showToast(this, "Madafaka");
+                MessageUtils.showToast(this, "Madafaka");
                 return true;
             case R.id.action3:
-                Utils.showToast(this, "Croustade again mada");
+                MessageUtils.showToast(this, "Croustade again mada");
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     // bouton recherche
     public void buttonSearch(View view) {
         EditText editText = (EditText) findViewById(R.id.textSearch);
-        Utils.showSnackbar(view, "Search: " + editText.getText().toString());
+        MessageUtils.showSnackbar(view, "Search: " + editText.getText().toString());
     }
 
     // bouton "livres"

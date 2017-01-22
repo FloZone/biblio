@@ -12,18 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.List;
 
 import fr.frodriguez.biblio.R;
 import fr.frodriguez.biblio.utils.ContextMenuDefine;
-import fr.frodriguez.biblio.utils.Utils;
+import fr.frodriguez.library.utils.MessageUtils;
 
 /**
  * By Florian on 11/01/2017.
@@ -310,7 +308,7 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
                                 try {
                                     newElement = elementClass.newInstance();
                                     if(!newElement.updateName(newName)) {
-                                        Utils.showToast(SimpleListActivity.this,
+                                        MessageUtils.showToast(SimpleListActivity.this,
                                                 "Error while creating the element");
                                     }
                                     // Add the element to the listview
