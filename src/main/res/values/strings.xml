@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Biblio</string>
+
+    <!-- General -->
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="search">Search</string>
+    <string name="add">Add</string>
+    <string name="clear">Clear</string>
+
+    <string name="name">Name</string>
+    <string name="addElement">Add an element</string>
+    <string name="errorMustSetName">You must set a name</string>
+    <string name="errorNameNotAvailable">This name is not available</string>
+
+
+    <!-- Main menu -->
+    <string name="action1">action1</string>
+    <string name="action2">action2</string>
+    <string name="action3">action3</string>
+
+
+    <!-- MAIN ACTIVITY -->
+    <string name="mainTextHintSearch">Search a book</string>
+    <string name="mainButtonBooks">Books</string>
+    <string name="mainButtonAuthors">Authors</string>
+    <string name="mainButtonFormats">Formats</string>
+    <string name="mainButtonSeries">Series</string>
+    <string name="mainButtonThemes">Themes</string>
+
+
+    <!-- BOOKS ACTIVITY -->
+    <string name="booksDialogTitle">Add a book</string>
+
+    <string name="booksTitle">Title</string>
+    <string name="booksSubtitle">Subtitle</string>
+    <string name="booksAuthor">Author</string>
+    <string name="booksYear">Year</string>
+    <string name="booksNumber">Number</string>
+    <string name="booksBookshelfnumber">Bookshelf number</string>
+    <string name="booksDescription">Description</string>
+    <string name="booksGot">Got</string>
+    <string name="booksRate">Rate</string>
+
+    <string name="booksDialogErrorExists">This book already exists</string>
+    <string name="booksDialogErrorTitle">You must set a title</string>
+
+    <string name="booksDetailsDelete">Do you want to delete this book ?</string>
+
+</resources>

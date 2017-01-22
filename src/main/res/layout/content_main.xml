@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="64dp"
+    tools:context=".MainActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/textSearch"
+            android:hint="@string/mainTextHintSearch"
+            android:maxLines="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <!-- SEARCH -->
+        <Button
+            android:id="@+id/buttonSearch"
+            android:text="@string/search"
+            android:onClick="buttonSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+    <!-- BOOKS -->
+    <Button
+        android:id="@+id/buttonBooks"
+        android:text="@string/mainButtonBooks"
+        android:onClick="buttonBooks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <!-- AUTHORS -->
+    <Button
+        android:id="@+id/buttonAuthors"
+        android:text="@string/mainButtonAuthors"
+        android:onClick="buttonAuthors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <!-- FORMATS -->
+    <Button
+        android:id="@+id/buttonFormats"
+        android:text="@string/mainButtonFormats"
+        android:onClick="buttonFormats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <!-- SERIES -->
+    <Button
+        android:id="@+id/buttonSeries"
+        android:text="@string/mainButtonSeries"
+        android:onClick="buttonSeries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <!-- THEMES -->
+    <Button
+        android:id="@+id/buttonThemes"
+        android:text="@string/mainButtonThemes"
+        android:onClick="buttonThemes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>

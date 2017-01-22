@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+
+        <EditText
+            android:id="@+id/dialogBookTitle"
+            android:inputType="textCapSentences"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:hint="@string/booksTitle" />
+
+        <EditText
+            android:id="@+id/dialogBookSubtitle"
+            android:inputType="textCapSentences"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:hint="@string/booksSubtitle" />
+
+        <Spinner
+            android:id="@+id/dialogBookAuthors"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp" />
+
+        <EditText
+            android:id="@+id/dialogBookNumber"
+            android:inputType="number"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:maxLength="4"
+            android:hint="@string/booksNumber" />
+
+        <EditText
+            android:id="@+id/dialogBookYear"
+            android:inputType="number"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:maxLength="4"
+            android:hint="@string/booksYear" />
+
+        <EditText
+            android:id="@+id/dialogBookshelfnumber"
+            android:inputType="number"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:hint="@string/booksBookshelfnumber" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/booksGot"
+                android:id="@+id/dialogBookGotText"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:textSize="20sp"
+                android:layout_centerVertical="true" />
+            <Switch
+                android:id="@+id/dialogBookGot"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:checked="false"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/booksRate"
+                android:id="@+id/dialogBookRateText"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:textSize="20sp"
+                android:layout_centerVertical="true"/>
+            <RatingBar
+                android:id="@+id/dialogBookRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:stepSize="1.0"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/dialogBookDescription"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:hint="@string/booksDescription" />
+
+    </LinearLayout>
+</ScrollView>

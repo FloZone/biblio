@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- en-tête -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-- IMAGE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+                <ImageView
+                    android:id="@+id/booksDetailsImage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/book" />
+            </LinearLayout>
+
+            <!-- titres -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <!-- TITRE -->
+                <EditText
+                    android:id="@+id/booksDetailsTitleEdit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:hint="@string/booksTitle"
+                    android:inputType="textCapSentences" />
+
+                <!-- SOUS-TITRE -->
+                <EditText
+                    android:id="@+id/booksDetailsSubtitleEdit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:inputType="textCapSentences"
+                    android:hint="@string/booksSubtitle" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- corps -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- NUMERO -->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/booksNumber"
+                    android:gravity="center_vertical"/>
+                <EditText
+                    android:id="@+id/booksDetailsNumberEdit"
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:hint="@string/booksNumber" />
+            </LinearLayout>
+
+            <!-- ANNEE -->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/booksYear"
+                    android:gravity="center_vertical" />
+                <EditText
+                    android:id="@+id/booksDetailsYearEdit"
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:hint="@string/booksYear" />
+            </LinearLayout>
+
+            <!-- COTE -->
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:text="@string/booksBookshelfnumber"
+                    android:gravity="center_vertical" />
+                <EditText
+                    android:id="@+id/booksDetailsBookshelfnumberEdit"
+                    android:layout_weight="1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:inputType="number"
+                    android:hint="@string/booksBookshelfnumber" />
+            </LinearLayout>
+
+            <!-- POSSEDE -->
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_centerVertical="true"
+                    android:text="@string/booksGot" />
+                <Switch
+                    android:id="@+id/booksDetailsGot"
+                    android:layout_height="fill_parent"
+                    android:layout_width="wrap_content"
+                    android:checked="true"
+                    android:enabled="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+            <!-- NOTE -->
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="@string/booksRate"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentStart="true" />
+                <RatingBar
+                    android:id="@+id/booksDetailsRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:numStars="5"
+                    android:stepSize="1.0"
+                    android:rating="3"
+                    android:isIndicator="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+            <!-- DESCRIPTION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/booksDescription" />
+            <EditText
+                android:id="@+id/booksDetailsDescriptionEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:hint="@string/booksDescription" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

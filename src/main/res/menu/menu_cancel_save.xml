@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:biblio="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        android:id="@+id/itemCancelEdit"
+        android:icon="@drawable/ic_close_white_48dp"
+        android:title="@string/cancel"
+        biblio:showAsAction="always" />
+    <item
+        android:id="@+id/itemSaveEdit"
+        android:icon="@drawable/ic_done_white_48dp"
+        android:title="@string/save"
+        biblio:showAsAction="always" />
+
+</menu>
