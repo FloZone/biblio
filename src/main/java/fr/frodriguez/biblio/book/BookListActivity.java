@@ -43,131 +43,179 @@ public class BookListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
 
+        // Get the listview and populate it
         listView = (ListView) findViewById(R.id.listBooks);
+        populateListView();
 
-        // Click d'un élément dans la liste = ouvrir activité pour le consulter
+        // Create the context menu (long click on one element in the listview)
+        registerForContextMenu(listView);
+
+        // Open the book activity when clicking on it
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Book book = (Book) listView.getItemAtPosition(position);
+                // Get the book id
+                long bookId = ((Book) listView.getItemAtPosition(position)).getId();
                 Intent intent = new Intent(BookListActivity.this, BookDetailsActivity.class);
-                intent.putExtra(IntentData.BOOK_ID, book.getId());
+                intent.putExtra(IntentData.BOOK_ID, bookId);
                 startActivity(intent);
             }
         });
-
-        // remplir la listview avec les éléments en bdd
-        populateListView();
-
-        // créer le menu contextuel (= appui long sur un élément dans la liste)
-        registerForContextMenu(listView);
     }
 
-    // remplir la listview
+
+    /**
+     * Populate the listview with elements from the database
+     */
     private void populateListView() {
-        // récupérer tous les livres en base
+        // Get all elements in the database
         List<Book> books = Book.getAll();
+        // Populate the listview thanks the adapter
         bookAdapter = new BookAdaptater(this, books);
         listView.setAdapter(bookAdapter);
     }
 
+    /**
+     * When user comes back to this activity, refresh the listview to keep it up-to-date
+     */
     @Override
     protected void onResume() {
         super.onResume();
-        // rafraichir la liste quand on retourne sur cette activité
+        // refresh the listview data
         populateListView();
     }
 
-
+    /**
+     * Create a context menu which allows to edit or delete an element
+     */
     @Override
-    // créer menu contextuel (= appui long)
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        if (v.getId() == R.id.listBooks) {
-            // Titre de la popup = titre du livre
+        // If user long clicked the listview (i.e an element inside the listview)
+        if(v.getId() == R.id.listBooks) {
+            // Create a context menu for this element (a little popup)
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) menuInfo;
-            String title = (bookAdapter.getItem(acmi.position)).getTitle();
-            menu.setHeaderTitle(title);
 
-            // boutons annuler et supprimer
-            menu.add(Menu.NONE, ContextMenuDefine.CANCEL, Menu.NONE, R.string.cancel);
+            // The title of this popup is the name of the clicked element
+            String title;
+            Book book  = bookAdapter.getItem(acmi.position);
+            if(book != null) {
+                title = book.getTitle();
+            }
+            else {
+                return;
+            }
+               menu.setHeaderTitle(title);
+
+            // Add an edit button
+            menu.add(Menu.NONE, ContextMenuDefine.EDIT, Menu.NONE, R.string.edit);
+            // Add a delete button
             menu.add(Menu.NONE, ContextMenuDefine.DELETE, Menu.NONE, R.string.delete);
         }
     }
 
+    /**
+     * Called when a button of the context menu is clicked
+     */
     @Override
-    // click sur un élément du menu contextuel
     public boolean onContextItemSelected(MenuItem item) {
-        switch ( item.getItemId() ) {
+        // Get the selected element position
+        int position = ((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position;
+
+        // Switch on the different buttons available
+        switch (item.getItemId()) {
             case ContextMenuDefine.DELETE:
-                // récupérer l'id de l'élément
-                int position = ((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position;
-                // le supprimer de la bdd et de la liste
-                Book.delete(Book.class, bookAdapter.getItem(position).getId());
-                bookAdapter.remove(position);
+                Book book = bookAdapter.getItem(position);
+                if(book != null) {
+                    // Delete the element from the database
+                    Book.delete(Book.class, book.getId());
+                    // Delete the element from the listview
+                    bookAdapter.remove(position);
+
+                }
                 return true;
-            case ContextMenuDefine.CANCEL:
+
+            case ContextMenuDefine.EDIT:
+                // Open an 'edit' popup for the element
+                editElement(position);
                 return true;
+
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
+    /**
+     * Open a popup for editing the given element
+     * @param position position of the element to edit
+     */
+    private void editElement(final int position) {
+        //TODO create popup etc, same thing than create
+    }
 
+    /**
+     * Add a +/add button to the action bar
+     */
     @Override
-    // créer le menu
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Create the +/add button
         getMenuInflater().inflate(R.menu.menu_add, menu);
+        // Return true to open the menu
         return true;
     }
 
+    /**
+     * Handle click on the button added just above
+     */
     @Override
-    // gère le clic les items du menu
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.itemMenuAdd) {
+        // If the selected item is the +/add button
+        if(item.getItemId() == R.id.itemMenuAdd) {
 
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-            dialogBuilder
+            // Create a popup for adding a new alement
+            final AlertDialog popup = new AlertDialog.Builder(this)
                     .setTitle(R.string.booksDialogTitle)
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.save, null) // override après
-                    .setNegativeButton(R.string.cancel, null);
-            // charger le layout
-            dialogBuilder.setView(((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.dialog_add_book, null));
+                    .setPositiveButton(R.string.save, null) // override below to prevent autoclosing
+                    .setNegativeButton(R.string.cancel, null)
+                    .setView(R.layout.dialog_add_book)
+                    .create();
 
-            final AlertDialog alertDialog = dialogBuilder.create();
+            // Auto open keyboard
+            if(popup.getWindow() != null) {
+                popup.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            }
 
-            // redimensionner pour pouvoir scroller
-            alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             // click sur bouton valider (passer par le dialogBuilder ferme automatiquement, ici non)
-            alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            popup.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(final DialogInterface dialog) {
-                    // remplir la liste des auteurs
-                    populateAuthorsSpinner((Dialog)dialog);
+                    //TODO populate author list
+                    //populateAuthorsSpinner((Dialog)dialog);
 
-                    // ajouter la validation
-                    ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    // On save button
+                    popup.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // sauvegarder le livre
-                            saveBook((AlertDialog) dialog);
+                            // Try to add the new element
+                            if(validateNewElement(popup)) {
+                                // On success, close the popup
+                                popup.dismiss();
+                            }
                         }
                     });
                 }
             });
-            alertDialog.show();
-
+            popup.show();
         }
         return true;
     }
 
-
+    //TODO here
     // sauvegarder le livre
-    private void saveBook(Dialog dialog) {
-        EditText title = (EditText) dialog.findViewById(R.id.dialogBookTitle);
+    private boolean validateNewElement(AlertDialog popup) {
+        EditText title = (EditText) popup.findViewById(R.id.dialogBookTitle);
         String titleStr = title.getText().toString();
 
-        EditText subtitle = (EditText) dialog.findViewById(R.id.dialogBookSubtitle);
+        EditText subtitle = (EditText) popup.findViewById(R.id.dialogBookSubtitle);
         String subtitleStr = subtitle.getText().toString();
 
         if (titleStr.length() > 0) {
@@ -191,30 +239,30 @@ public class BookListActivity extends AppCompatActivity {
                 if (subtitleStr.length() > 0) book.setSubtitle(subtitleStr);
 
                 // année
-                EditText editText = (EditText) dialog.findViewById(R.id.dialogBookYear);
+                EditText editText = (EditText) popup.findViewById(R.id.dialogBookYear);
                 String value = editText.getText().toString();
                 if (value.length() > 0) book.setYear(Integer.parseInt(value));
 
                 // numéro
-                editText = (EditText) dialog.findViewById(R.id.dialogBookNumber);
+                editText = (EditText) popup.findViewById(R.id.dialogBookNumber);
                 value = editText.getText().toString();
                 if (value.length() > 0) book.setNumber(Integer.parseInt(value));
 
                 // cote
-                editText = (EditText) dialog.findViewById(R.id.dialogBookshelfnumber);
+                editText = (EditText) popup.findViewById(R.id.dialogBookshelfnumber);
                 value = editText.getText().toString();
                 if (value.length() > 0) book.setBookshelfnumber(Integer.parseInt(value));
 
                 // possédé
-                Switch aSwitch = (Switch) dialog.findViewById(R.id.dialogBookGot);
+                Switch aSwitch = (Switch) popup.findViewById(R.id.dialogBookGot);
                 book.setGot(aSwitch.isChecked());
 
                 // note
-                RatingBar ratingBar = (RatingBar) dialog.findViewById(R.id.dialogBookRate);
+                RatingBar ratingBar = (RatingBar) popup.findViewById(R.id.dialogBookRate);
                 book.setRate((int) ratingBar.getRating());
 
                 // description
-                editText = (EditText) dialog.findViewById(R.id.dialogBookDescription);
+                editText = (EditText) popup.findViewById(R.id.dialogBookDescription);
                 value = editText.getText().toString();
                 if (value.length() > 0) book.setDescription(value);
 
@@ -225,15 +273,15 @@ public class BookListActivity extends AppCompatActivity {
                 // l'ajouter à la liste et l'actualiser
                 bookAdapter.add(savedBook);
 
-                dialog.dismiss();
+                return true;
             //}
         } else {
             title.setError(getResources().getString(R.string.booksDialogErrorTitle));
+            return false;
         }
     }
 
-    // TODO à terminer
-    // remplir la liste des auteurs
+    // TODO liste des auteurs
     private void populateAuthorsSpinner(Dialog dialog) {
         Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookAuthors);
         // récupérer les auteurs
