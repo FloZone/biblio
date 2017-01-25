@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Add a button to the action bar
+    // Add a menu button to the action bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -61,44 +61,38 @@ public class MainActivity extends AppCompatActivity {
                 MessageUtils.showToast(this, "Madafaka");
                 return true;
             case R.id.action3:
-                MessageUtils.showToast(this, "Croustade again mada");
+                MessageUtils.showToast(this, "Croustade again madafaka");
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
 
-    // bouton recherche
-    public void buttonSearch(View view) {
-        EditText editText = (EditText) findViewById(R.id.textSearch);
-        MessageUtils.showSnackbar(view, "Search: " + editText.getText().toString());
-    }
-
-    // bouton "livres"
+    // Book list
     public void buttonBooks(View view) {
         Intent intent = new Intent(MainActivity.this, BookListActivity.class);
         startActivity(intent);
     }
 
-    // bouton "auteurs"
+    // Author list
     public void buttonAuthors(View view) {
         Intent intent = new Intent(MainActivity.this, AuthorListActivity.class);
         startActivity(intent);
     }
 
-    // bouton "formats"
+    // Format list
     public void buttonFormats(View view) {
         Intent intent = new Intent(MainActivity.this, FormatListActivity.class);
         startActivity(intent);
     }
 
-    // bouton "series"
+    // Serie list
     public void buttonSeries(View view) {
         Intent intent = new Intent(MainActivity.this, SerieListActivity.class);
         startActivity(intent);
     }
 
-    // bouton "themes"
+    // Theme list
     public void buttonThemes(View view) {
         Intent intent = new Intent(MainActivity.this, ThemeListActivity.class);
         startActivity(intent);

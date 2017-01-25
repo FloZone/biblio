@@ -59,6 +59,7 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
             //TODO faire une class logger + creer une exception perso
             Log.e("TAG", "Error, you must call setElementClass(Element.class) " +
                     "before calling super.onCreate(savedInstanceState)");
+            return;
         }
 
         // Layout with a listview, a '+' button and a popup to set element info
@@ -115,7 +116,7 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
     }
 
     /**
-     * When user comes back to this activity, refresh the listview to keep up-to-date
+     * When user comes back to this activity, refresh the listview to keep it up-to-date
      */
     @Override
     protected void onResume() {
@@ -126,9 +127,6 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
 
     /**
      * Create a context menu which allows to edit or delete an element
-     * @param menu
-     * @param v
-     * @param menuInfo
      */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -157,8 +155,6 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
 
     /**
      * Called when a button of the context menu is clicked
-     * @param item
-     * @return
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -188,6 +184,31 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
     }
 
     /**
+     * Check if the element form is valid of not
+     * @param editText editText containing the value to check
+     * @return true if the form is valid, else false
+     */
+    private boolean checkUserInput(EditText editText) {
+        switch (Element.isNameAvailable(elementClass, editText.getText().toString())) {
+            case Element.VALID:
+                return true;
+
+            case Element.ERROR_EMPTY:
+                // If the editText is empty
+                editText.setError(getResources().getString(R.string.errorMustSetName));
+                return false;
+
+            case Element.ERROR_USED:
+                // Else if the name is not available
+                editText.setError(getResources().getString(R.string.errorNameNotAvailable));
+                return false;
+
+            default:
+                return false;
+        }
+    }
+
+    /**
      * Open a popup for editing the given element
      * @param position position of the element to edit
      */
@@ -213,29 +234,12 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
                 // Fill the editText with the element name
                 ((EditText) popup.findViewById(R.id.dialogName)).setText(currentName);
 
-                // On save button, check the new name
+                // On save button
                 popup.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Get the new name
-                        EditText editText = (EditText) popup.findViewById(R.id.dialogName);
-                        String newName = editText.getText().toString();
-
-                        // If the editText is empty
-                        if(newName.isEmpty()) {
-                            editText.setError(getResources().getString(R.string.errorMustSetName));
-                        }
-                        // Else if no change for the name, just close the popup
-                        else if(currentName.equals(newName)) {
-                            popup.dismiss();
-                        }
-                        // Else if the name is not available
-                        else if(!Element.isNameAvailable(elementClass, newName)) {
-                            editText.setError(getResources().getString(R.string.errorNameNotAvailable));
-                        }
-                        // Else, update the element
-                        else {
-                            simpleAdapter.updateElement(position, newName);
+                        // Try to save the edited element
+                        if(validateEditElement(popup, position)) {
                             // Close the popup
                             popup.dismiss();
                         }
@@ -248,13 +252,35 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
     }
 
     /**
+     * Try to save the edited element
+     * @param popup the popup containing the form to validate
+     * @param position the position in the listview of the element to edit
+     * @return true if the element is savec and the popup has to be closed, else false
+     */
+    private boolean validateEditElement(AlertDialog popup, int position) {
+        // Get the editText and its value
+        EditText editText = (EditText) popup.findViewById(R.id.dialogName);
+        String newName = editText.getText().toString();
+
+        // Element to edit is null or no change
+        Element elementToEdit = simpleAdapter.getItem(position);
+        if(elementToEdit == null || elementToEdit.getName().equals(newName)) {
+            return true;
+        }
+
+        // If the input is valid
+        if(checkUserInput(editText)) {
+            simpleAdapter.updateElement(position, newName);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Add a +/add button to the action bar
-     * @param menu
-     * @return
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Create the +/add button
         getMenuInflater().inflate(R.menu.menu_add, menu);
         // Return true to open the menu
         return true;
@@ -262,8 +288,6 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
 
     /**
      * Handle click on the button added just above
-     * @param item
-     * @return
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -273,7 +297,7 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
             // Create a popup for adding a new alement
             final AlertDialog popup = new AlertDialog.Builder(this)
                     .setTitle(R.string.addElement)
-                    .setPositiveButton(R.string.save, null) // override after to prevent autoclosing
+                    .setPositiveButton(R.string.save, null) // override below to prevent autoclosing
                     .setNegativeButton(R.string.cancel, null)
                     .setView(R.layout.dialog_simple_name)
                     .create();
@@ -286,38 +310,14 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
             popup.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(final DialogInterface dialog) {
-                    // On save button, chech the new name
+                    // On save button
                     popup.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // Get the new name
-                            EditText editText = (EditText) popup.findViewById(R.id.dialogName);
-                            String newName = editText.getText().toString();
-
-                            // If the editText is empty
-                            if(newName.isEmpty()) {
-                                editText.setError(getResources().getString(R.string.errorMustSetName));
-                            }
-                            // Else if the name is not available
-                            else if(!Element.isNameAvailable(elementClass, newName)) {
-                                editText.setError(getResources().getString(R.string.errorNameNotAvailable));
-                            }
-                            // Else, create and save the new element
-                            else {
-                                Element newElement;
-                                try {
-                                    newElement = elementClass.newInstance();
-                                    if(!newElement.updateName(newName)) {
-                                        MessageUtils.showToast(SimpleListActivity.this,
-                                                "Error while creating the element");
-                                    }
-                                    // Add the element to the listview
-                                    simpleAdapter.add(newElement);
-                                    // Close the popup
-                                    popup.dismiss();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                            // Try to add the new element
+                            if(validateNewElement(popup)) {
+                                // On success, close the popup
+                                popup.dismiss();
                             }
                         }
                     });
@@ -329,4 +329,33 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
         return true;
     }
 
+    /**
+     * Try to add a new element
+     * @param popup the popup containing the form to validate
+     * @return true if the element is added and the popup has to be closed, else false
+     */
+    private boolean validateNewElement(AlertDialog popup) {
+        // Get the editText
+        EditText editText = (EditText) popup.findViewById(R.id.dialogName);
+
+        // If the input is valid
+        if(checkUserInput(editText)) {
+            try {
+                // save the new element
+                String newName = editText.getText().toString();
+                Element newElement = elementClass.newInstance();
+                if(!newElement.updateName(newName)) {
+                    MessageUtils.showToast(SimpleListActivity.this,
+                            "Error while creating the new element");
+                    return false;
+                }
+                // Add the element to the listview
+                simpleAdapter.add(newElement);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }

@@ -16,9 +16,12 @@ import fr.frodriguez.biblio.model.Book;
 
 abstract public class SimpleNamedElement extends Model implements Comparable<SimpleNamedElement> {
 
+    public static final int VALID       = 0;
+    public static final int ERROR_EMPTY = 1;
+    public static final int ERROR_USED  = 2;
+
     @Column(name = "name", notNull = true)
     private String name;
-
 
     public String getName() {
         return name;
@@ -56,11 +59,15 @@ abstract public class SimpleNamedElement extends Model implements Comparable<Sim
      * @param <Element> a class implementing this class
      * @return true if the name is available, false if the name is already used
      */
-    public static <Element extends SimpleNamedElement> boolean isNameAvailable(Class<Element> type, String name) {
+    public static <Element extends SimpleNamedElement> int isNameAvailable(Class<Element> type, String name) {
+        if(name == null || name.isEmpty()) {
+            return ERROR_EMPTY;
+        }
+
         // Get an element from the database with the name to check
         Element existingElement = Element.getByName(type, name);
         // If there is an element, the name is not available
-        return existingElement == null;
+        return (existingElement == null) ? VALID : ERROR_USED;
     }
 
 
