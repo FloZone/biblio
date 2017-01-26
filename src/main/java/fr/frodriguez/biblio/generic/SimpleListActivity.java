@@ -20,6 +20,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import fr.frodriguez.biblio.R;
+import fr.frodriguez.biblio.model.Defines;
 import fr.frodriguez.biblio.utils.ContextMenuDefine;
 import fr.frodriguez.library.utils.MessageUtils;
 
@@ -72,10 +73,9 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
         // Create the context menu (long click on one element in the listview)
         registerForContextMenu(listView);
 
+        // Manage the search editText
         final EditText searchEditText = (EditText) findViewById(R.id.searchEditText);
         final ImageButton clearButton = (ImageButton) findViewById(R.id.clearButton);
-
-        // Manage the search editText
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -166,10 +166,10 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
             case ContextMenuDefine.DELETE:
                 Element element = simpleAdapter.getItem(position);
                 if(element != null) {
-                    // Delete the element from the database
-                    Element.delete(elementClass, element.getId());
                     // Delete the element from the listview
                     simpleAdapter.remove(element);
+                    // Delete the element from the database
+                    Element.delete(elementClass, element.getId());
                 }
                 return true;
 
@@ -190,20 +190,21 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
      */
     private boolean checkUserInput(EditText editText) {
         switch (Element.isNameAvailable(elementClass, editText.getText().toString())) {
-            case Element.VALID:
-                return true;
-
-            case Element.ERROR_EMPTY:
-                // If the editText is empty
+            case Defines.VALUE_ERROR_EMPTY:
+                // If the name is empty
                 editText.setError(getResources().getString(R.string.errorMustSetName));
                 return false;
 
-            case Element.ERROR_USED:
-                // Else if the name is not available
+            case Defines.VALUE_ERROR_USED:
+                // If the name is not available
                 editText.setError(getResources().getString(R.string.errorNameNotAvailable));
                 return false;
 
+            case Defines.VALUE_OK:
+                return true;
+
             default:
+                Log.d("Croustade", "Error code:" );
                 return false;
         }
     }
@@ -341,14 +342,10 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
         // If the input is valid
         if(checkUserInput(editText)) {
             try {
-                // save the new element
+                // Save the new element
                 String newName = editText.getText().toString();
                 Element newElement = elementClass.newInstance();
-                if(!newElement.updateName(newName)) {
-                    MessageUtils.showToast(SimpleListActivity.this,
-                            "Error while creating the new element");
-                    return false;
-                }
+                newElement.updateName(newName);
                 // Add the element to the listview
                 simpleAdapter.add(newElement);
                 return true;

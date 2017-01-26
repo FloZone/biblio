@@ -8,6 +8,12 @@ import com.activeandroid.query.Select;
 
 import java.util.List;
 
+import fr.frodriguez.library.utils.StringUtils;
+
+import static fr.frodriguez.biblio.model.Defines.VALUE_OK;
+import static fr.frodriguez.biblio.model.Defines.VALUE_ERROR_EMPTY;
+import static fr.frodriguez.biblio.model.Defines.VALUE_ERROR_USED;
+
 /**
  * Created by linux on 12/01/16.
  */
@@ -127,6 +133,28 @@ public class Book extends Model {
         this.theme = theme;
     }
 
+
+    public static int isTitleAvailable(String title) {
+        if(StringUtils.isEmpty(title)) {
+            return VALUE_ERROR_EMPTY;
+        }
+
+        // Get a book from the database with the title to check
+        Book existingBook = Book.getByTitle(title);
+        // If there is a book, the title is not available
+        return (existingBook == null) ? VALUE_OK : VALUE_ERROR_USED;
+    }
+
+    public static int isTitleAndSubtitleAvailable(String title, String subtitle) {
+        if(StringUtils.isEmpty(title)) {
+            return VALUE_ERROR_EMPTY;
+        }
+
+        // Get a book from the database with the title and subtitle to check
+        Book existingBook = Book.getByTitleAndSubtitle(title, subtitle);
+        // If there is a book, the subtitle is not available
+        return (existingBook == null) ? VALUE_OK : VALUE_ERROR_USED;
+    }
     
     public static Book getById(Long id) {
         return new Select()
@@ -135,7 +163,7 @@ public class Book extends Model {
                 .executeSingle();
     }
 
-    public static Book getOneByTitle(String title) {
+    public static Book getByTitle(String title) {
         return new Select()
                 .from(Book.class)
                 .where("title = ?", title)
@@ -143,16 +171,10 @@ public class Book extends Model {
     }
 
     public static Book getByTitleAndSubtitle(String title, String subtitle) {
-        From query = new Select().from(Book.class);
-
-        if(subtitle.length() == 0) {
-            return query.where("title = ? AND subtitle IS NULL", title)
-                    .executeSingle();
-        }
-        else {
-            return query.where("title = ? AND subtitle = ?", title, subtitle)
-                    .executeSingle();
-        }
+        return new Select()
+                .from(Book.class)
+                .where("title = ? AND subtitle = ?", title, subtitle)
+                .executeSingle();
     }
 
     public static List<Book> getAll() {

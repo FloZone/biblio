@@ -9,16 +9,17 @@ import com.activeandroid.query.Select;
 import java.util.List;
 
 import fr.frodriguez.biblio.model.Book;
+import fr.frodriguez.library.utils.StringUtils;
+
+import static fr.frodriguez.biblio.model.Defines.VALUE_OK;
+import static fr.frodriguez.biblio.model.Defines.VALUE_ERROR_EMPTY;
+import static fr.frodriguez.biblio.model.Defines.VALUE_ERROR_USED;
 
 /**
  * By Florian on 10/01/2017.
  */
 
 abstract public class SimpleNamedElement extends Model implements Comparable<SimpleNamedElement> {
-
-    public static final int VALID       = 0;
-    public static final int ERROR_EMPTY = 1;
-    public static final int ERROR_USED  = 2;
 
     @Column(name = "name", notNull = true)
     private String name;
@@ -32,9 +33,9 @@ abstract public class SimpleNamedElement extends Model implements Comparable<Sim
      * @param name the new name to set
      * @return true if updated successfully, false if not
      */
-    public boolean updateName(String name) {
+    public void updateName(String name) {
         this.name = name;
-        return this.save().equals(this.getId());
+        this.save();
     }
 
     /**
@@ -60,14 +61,14 @@ abstract public class SimpleNamedElement extends Model implements Comparable<Sim
      * @return true if the name is available, false if the name is already used
      */
     public static <Element extends SimpleNamedElement> int isNameAvailable(Class<Element> type, String name) {
-        if(name == null || name.isEmpty()) {
-            return ERROR_EMPTY;
+        if(StringUtils.isEmpty(name)) {
+            return VALUE_ERROR_EMPTY;
         }
 
         // Get an element from the database with the name to check
         Element existingElement = Element.getByName(type, name);
         // If there is an element, the name is not available
-        return (existingElement == null) ? VALID : ERROR_USED;
+        return (existingElement == null) ? VALUE_OK : VALUE_ERROR_USED;
     }
 
 

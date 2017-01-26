@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MessageUtils.showSnackbar(view, "Surprise motherfucker !");
+                MessageUtils.showToast(MainActivity.this, "Surprise motherfucker !");
             }
         });
     }

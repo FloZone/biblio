@@ -68,7 +68,7 @@ public class BookEditActivity extends AppCompatActivity {
         if (id == R.id.itemSaveEdit) {
             // vérifier que le titre n'est pas vide
             if (editTextTitle.getText().toString().length() < 1) {
-                editTextTitle.setError(getResources().getString(R.string.booksDialogErrorTitle));
+                editTextTitle.setError(getResources().getString(R.string.errorMustSetTitle));
             }
             // sinon vérifier que le livre n'existe pas déjà
             else {

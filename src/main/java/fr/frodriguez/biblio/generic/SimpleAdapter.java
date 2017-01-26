@@ -56,7 +56,7 @@ public class SimpleAdapter<Element extends SimpleNamedElement> extends ArrayAdap
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            // get a simple default layout
+            // Get a simple default layout
             convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
         }
 
@@ -101,16 +101,11 @@ public class SimpleAdapter<Element extends SimpleNamedElement> extends ArrayAdap
     public void updateElement(int position, String newName) {
         // Update the element from the displayed list
         Element element = displayedElements.get(position);
-        if(!element.updateName(newName)) {
-            Log.d("Croustade", "Error updating the element");
-        }
-        // If update is ok
-        else {
-            // Also update the allElements list
-            allElements.set(position, element);
-            // Refresh the listview
-            notifyDataSetChanged();
-        }
+        element.updateName(newName);
+        // Also update the allElements list
+        allElements.set(position, element);
+        // Refresh the listview
+        notifyDataSetChanged();
     }
 
     /**
