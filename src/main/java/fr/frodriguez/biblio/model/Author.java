@@ -4,8 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.activeandroid.annotation.Table;
 
-import fr.frodriguez.biblio.generic.SimpleNamedElement;
-
 /**
  * Created by Florian Rodriguez on 30/01/16.
  */

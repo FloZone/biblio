@@ -1,4 +1,4 @@
-package fr.frodriguez.biblio.generic;
+package fr.frodriguez.biblio.model;
 
 import android.support.annotation.NonNull;
 
@@ -8,7 +8,6 @@ import com.activeandroid.query.Select;
 
 import java.util.List;
 
-import fr.frodriguez.biblio.model.Book;
 import fr.frodriguez.library.utils.StringUtils;
 
 import static fr.frodriguez.biblio.model.Defines.VALUE_OK;

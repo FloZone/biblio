@@ -8,12 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import com.activeandroid.ActiveAndroid;
 
 import fr.frodriguez.biblio.author.AuthorListActivity;
-import fr.frodriguez.biblio.book.BookListActivity;
+import fr.frodriguez.biblio.element.book.BookListActivity;
 import fr.frodriguez.biblio.format.FormatListActivity;
 import fr.frodriguez.biblio.serie.SerieListActivity;
 import fr.frodriguez.biblio.theme.ThemeListActivity;

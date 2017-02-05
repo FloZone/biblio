@@ -1,4 +1,4 @@
-package fr.frodriguez.biblio.generic;
+package fr.frodriguez.biblio.simplelistview;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,8 +21,8 @@ import java.util.List;
 
 import fr.frodriguez.biblio.R;
 import fr.frodriguez.biblio.model.Defines;
+import fr.frodriguez.biblio.model.SimpleNamedElement;
 import fr.frodriguez.biblio.utils.ContextMenuDefine;
-import fr.frodriguez.library.utils.MessageUtils;
 
 /**
  * By Florian on 11/01/2017.

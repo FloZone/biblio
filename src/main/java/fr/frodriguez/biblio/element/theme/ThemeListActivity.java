@@ -2,7 +2,7 @@ package fr.frodriguez.biblio.theme;
 
 import android.os.Bundle;
 
-import fr.frodriguez.biblio.generic.SimpleListActivity;
+import fr.frodriguez.biblio.simplelistview.SimpleListActivity;
 import fr.frodriguez.biblio.model.Theme;
 
 /**

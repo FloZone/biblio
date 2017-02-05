@@ -31,9 +31,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".book.BookListActivity"/>
-        <activity android:name=".book.BookDetailsActivity"/>
-        <activity android:name=".book.BookEditActivity"/>
+        <activity android:name=".element.book.BookListActivity"/>
+        <activity android:name=".element.book.BookViewActivity"/>
+        <activity android:name=".element.book.BookEditActivity"/>
 
         <activity android:name=".author.AuthorListActivity"/>
         <activity android:name=".format.FormatListActivity"/>

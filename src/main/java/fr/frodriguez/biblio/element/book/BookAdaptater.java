@@ -1,4 +1,4 @@
-package fr.frodriguez.biblio.book;
+package fr.frodriguez.biblio.element.book;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

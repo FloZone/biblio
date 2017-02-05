@@ -1,4 +1,4 @@
-package fr.frodriguez.biblio.book;
+package fr.frodriguez.biblio.element.book;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,13 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.frodriguez.biblio.R;
-import fr.frodriguez.biblio.generic.SimpleListActivity;
 import fr.frodriguez.biblio.model.Author;
 import fr.frodriguez.biblio.model.Book;
 import fr.frodriguez.biblio.model.Defines;
 import fr.frodriguez.biblio.utils.ContextMenuDefine;
-import fr.frodriguez.biblio.utils.IntentData;
-import fr.frodriguez.library.utils.MessageUtils;
+import fr.frodriguez.biblio.utils.IntentExtra;
 import fr.frodriguez.library.utils.StringUtils;
 
 /**
@@ -64,8 +61,8 @@ public class BookListActivity extends AppCompatActivity {
                 // Get the book id
                 long bookId = ((Book) listView.getItemAtPosition(position)).getId();
                 // Open the details activity
-                Intent intent = new Intent(BookListActivity.this, BookDetailsActivity.class);
-                intent.putExtra(IntentData.BOOK_ID, bookId);
+                Intent intent = new Intent(BookListActivity.this, BookViewActivity.class);
+                intent.putExtra(IntentExtra.BOOK_ID, bookId);
                 startActivity(intent);
             }
         });
@@ -176,7 +173,7 @@ public class BookListActivity extends AppCompatActivity {
                 // Get the book id
                 long bookId = ((Book) listView.getItemAtPosition(position)).getId();
                 Intent intent = new Intent(BookListActivity.this, BookEditActivity.class);
-                intent.putExtra(IntentData.BOOK_ID, bookId);
+                intent.putExtra(IntentExtra.BOOK_ID, bookId);
                 startActivity(intent);
 
                 return true;
@@ -298,6 +295,12 @@ public class BookListActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Check if the title and subtitle are valid for a new book
+     * @param title
+     * @param subtitle
+     * @return true if the title and subtitle are valid
+     */
     private boolean checkUserInput(EditText title, EditText subtitle) {
         int titleAvailable = Book.isTitleAvailable(title.getText().toString());
         int coupleAvailable = Book.isTitleAndSubtitleAvailable(title.getText().toString(), subtitle.getText().toString());
