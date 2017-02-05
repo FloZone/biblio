@@ -2,23 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip" >
+    android:padding="5dp" >
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="wrap_content"
+        android:contentDescription="@string/book"
+        android:layout_width="75dp"
         android:layout_height="fill_parent"
         android:src="@drawable/book" />
 
     <TextView
         android:id="@+id/secondLine"
         android:layout_width="fill_parent"
-        android:layout_height="25dip"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@id/image"
         android:ellipsize="marquee"
-        android:singleLine="true"
+        android:maxLines="1"
         android:textSize="12sp" />
 
     <TextView
@@ -31,5 +32,6 @@
         android:layout_alignWithParentIfMissing="true"
         android:layout_toEndOf="@id/image"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:textSize="16sp" />
 </RelativeLayout>

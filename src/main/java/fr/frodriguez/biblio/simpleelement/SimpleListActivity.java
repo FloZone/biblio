@@ -1,4 +1,4 @@
-package fr.frodriguez.biblio.simplelistview;
+package fr.frodriguez.biblio.simpleelement;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -37,7 +37,7 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
     // The type of the elements to manage
     private Class<Element> elementClass = null;
     // The listview adapter
-    private SimpleAdapter<Element> simpleAdapter;
+    private SimpleListviewAdapter<Element> simpleListviewAdapter;
     // And the listview
     private ListView listView;
 
@@ -79,7 +79,7 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                simpleAdapter.filter(searchEditText.getText().toString());
+                simpleListviewAdapter.filter(searchEditText.getText().toString());
 
                 // If the edit text is empty, hide the clear button
                 if(searchEditText.getText().toString().isEmpty()) {
@@ -111,8 +111,8 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
         // Get all elements in the database
         List<Element> elements = Element.getAll(elementClass);
         // Populate the listview thanks the simple adapter
-        simpleAdapter = new SimpleAdapter<>(this, elements);
-        listView.setAdapter(simpleAdapter);
+        simpleListviewAdapter = new SimpleListviewAdapter<>(this, elements);
+        listView.setAdapter(simpleListviewAdapter);
     }
 
     /**
@@ -137,7 +137,7 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
 
             // The title of this popup is the name of the clicked element
             String title;
-            Element element = simpleAdapter.getItem(acmi.position);
+            Element element = simpleListviewAdapter.getItem(acmi.position);
             if(element != null) {
                 title = element.getName();
             }
@@ -164,10 +164,10 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
         // Switch on the different buttons available
         switch (item.getItemId()) {
             case ContextMenuDefine.DELETE:
-                Element element = simpleAdapter.getItem(position);
+                Element element = simpleListviewAdapter.getItem(position);
                 if(element != null) {
                     // Delete the element from the listview
-                    simpleAdapter.remove(element);
+                    simpleListviewAdapter.remove(element);
                     // Delete the element from the database
                     Element.delete(elementClass, element.getId());
                 }
@@ -230,7 +230,7 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
         popup.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(final DialogInterface dialog) {
-                final String currentName = simpleAdapter.getItem(position).getName();
+                final String currentName = simpleListviewAdapter.getItem(position).getName();
 
                 // Fill the editText with the element name
                 ((EditText) popup.findViewById(R.id.dialogName)).setText(currentName);
@@ -264,14 +264,14 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
         String newName = editText.getText().toString();
 
         // Element to edit is null or no change
-        Element elementToEdit = simpleAdapter.getItem(position);
+        Element elementToEdit = simpleListviewAdapter.getItem(position);
         if(elementToEdit == null || elementToEdit.getName().equals(newName)) {
             return true;
         }
 
         // If the input is valid
         if(checkUserInput(editText)) {
-            simpleAdapter.updateElement(position, newName);
+            simpleListviewAdapter.updateElement(position, newName);
             return true;
         }
         return false;
@@ -347,7 +347,7 @@ public abstract class SimpleListActivity<Element extends SimpleNamedElement> ext
                 Element newElement = elementClass.newInstance();
                 newElement.updateName(newName);
                 // Add the element to the listview
-                simpleAdapter.add(newElement);
+                simpleListviewAdapter.add(newElement);
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

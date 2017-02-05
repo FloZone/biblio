@@ -1,8 +1,8 @@
-package fr.frodriguez.biblio.format;
+package fr.frodriguez.biblio.element.format;
 
 import android.os.Bundle;
 
-import fr.frodriguez.biblio.simplelistview.SimpleListActivity;
+import fr.frodriguez.biblio.simpleelement.SimpleListActivity;
 import fr.frodriguez.biblio.model.Format;
 
 /**

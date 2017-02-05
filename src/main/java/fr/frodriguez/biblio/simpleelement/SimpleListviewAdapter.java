@@ -1,4 +1,4 @@
-package fr.frodriguez.biblio.simplelistview;
+package fr.frodriguez.biblio.simpleelement;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -22,17 +22,17 @@ import fr.frodriguez.biblio.model.SimpleNamedElement;
  * An adapter which manages a simple listview
  * @param <Element> the type of the element to manage which implement SimpleNamedElement
  */
-public class SimpleAdapter<Element extends SimpleNamedElement> extends ArrayAdapter<Element> {
+public class SimpleListviewAdapter<Element extends SimpleNamedElement> extends ArrayAdapter<Element> {
 
     // List of elements to display
     private List<Element> displayedElements;
     // List of all elements
-    private ArrayList<Element> allElements;
+    private List<Element> allElements;
     // Current filter value
     private String filterValue = "";
 
 
-    public SimpleAdapter(Context context, List<Element> displayedElements) {
+    public SimpleListviewAdapter(Context context, List<Element> displayedElements) {
         super(context, 0, displayedElements);
         this.displayedElements = displayedElements;
         this.allElements = new ArrayList<>(displayedElements);
@@ -55,6 +55,7 @@ public class SimpleAdapter<Element extends SimpleNamedElement> extends ArrayAdap
     }
 
     @Override
+    @NonNull
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             // Get a simple default layout

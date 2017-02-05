@@ -11,11 +11,11 @@ import android.view.View;
 
 import com.activeandroid.ActiveAndroid;
 
-import fr.frodriguez.biblio.author.AuthorListActivity;
+import fr.frodriguez.biblio.element.author.AuthorListActivity;
 import fr.frodriguez.biblio.element.book.BookListActivity;
-import fr.frodriguez.biblio.format.FormatListActivity;
-import fr.frodriguez.biblio.serie.SerieListActivity;
-import fr.frodriguez.biblio.theme.ThemeListActivity;
+import fr.frodriguez.biblio.element.format.FormatListActivity;
+import fr.frodriguez.biblio.element.serie.SerieListActivity;
+import fr.frodriguez.biblio.element.theme.ThemeListActivity;
 import fr.frodriguez.library.utils.MessageUtils;
 
 public class MainActivity extends AppCompatActivity {

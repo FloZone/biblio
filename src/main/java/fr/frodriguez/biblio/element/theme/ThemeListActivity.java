@@ -1,8 +1,8 @@
-package fr.frodriguez.biblio.theme;
+package fr.frodriguez.biblio.element.theme;
 
 import android.os.Bundle;
 
-import fr.frodriguez.biblio.simplelistview.SimpleListActivity;
+import fr.frodriguez.biblio.simpleelement.SimpleListActivity;
 import fr.frodriguez.biblio.model.Theme;
 
 /**

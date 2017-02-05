@@ -131,6 +131,9 @@ public class BookEditActivity extends AppCompatActivity {
 
                     // Save the new element
                     book.save();
+
+                    // Close this activity
+                    finish();
                     return true;
                 }
         }

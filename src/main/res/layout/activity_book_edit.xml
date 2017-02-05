@@ -39,7 +39,7 @@
                     android:textStyle="bold"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:hint="@string/booksTitle"
+                    android:hint="@string/title"
                     android:inputType="textCapSentences" />
 
                 <!-- SOUS-TITRE -->
@@ -50,7 +50,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:inputType="textCapSentences"
-                    android:hint="@string/booksSubtitle" />
+                    android:hint="@string/subbtitle" />
             </LinearLayout>
         </LinearLayout>
 
@@ -68,7 +68,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:text="@string/booksNumber"
+                    android:text="@string/number"
                     android:gravity="center_vertical"/>
                 <EditText
                     android:id="@+id/booksDetailsNumberEdit"
@@ -77,7 +77,7 @@
                     android:layout_height="fill_parent"
                     android:inputType="number"
                     android:maxLength="4"
-                    android:hint="@string/booksNumber" />
+                    android:hint="@string/number" />
             </LinearLayout>
 
             <!-- ANNEE -->
@@ -89,7 +89,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:text="@string/booksYear"
+                    android:text="@string/year"
                     android:gravity="center_vertical" />
                 <EditText
                     android:id="@+id/booksDetailsYearEdit"
@@ -98,7 +98,7 @@
                     android:layout_height="fill_parent"
                     android:inputType="number"
                     android:maxLength="4"
-                    android:hint="@string/booksYear" />
+                    android:hint="@string/year" />
             </LinearLayout>
 
             <!-- COTE -->
@@ -110,7 +110,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:text="@string/booksBookshelfnumber"
+                    android:text="@string/bookshelfnumber"
                     android:gravity="center_vertical" />
                 <EditText
                     android:id="@+id/booksDetailsBookshelfnumberEdit"
@@ -118,7 +118,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:inputType="number"
-                    android:hint="@string/booksBookshelfnumber" />
+                    android:hint="@string/bookshelfnumber" />
             </LinearLayout>
 
             <!-- POSSEDE -->
@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_centerVertical="true"
-                    android:text="@string/booksGot" />
+                    android:text="@string/got" />
                 <Switch
                     android:id="@+id/booksDetailsGot"
                     android:layout_height="fill_parent"
@@ -149,7 +149,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:text="@string/booksRate"
+                    android:text="@string/rate"
                     android:layout_centerVertical="true"
                     android:layout_alignParentStart="true" />
                 <RatingBar
@@ -168,14 +168,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/booksDescription" />
+                android:text="@string/description" />
             <EditText
                 android:id="@+id/booksDetailsDescriptionEdit"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:inputType="textMultiLine"
                 android:lines="3"
-                android:hint="@string/booksDescription" />
+                android:hint="@string/description" />
         </LinearLayout>
 
     </LinearLayout>

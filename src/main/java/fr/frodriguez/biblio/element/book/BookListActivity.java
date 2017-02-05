@@ -1,7 +1,6 @@
 package fr.frodriguez.biblio.element.book;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -22,13 +20,13 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.frodriguez.biblio.R;
 import fr.frodriguez.biblio.model.Author;
 import fr.frodriguez.biblio.model.Book;
 import fr.frodriguez.biblio.model.Defines;
+import fr.frodriguez.biblio.simpleelement.SimpleSpinnerAdpater;
 import fr.frodriguez.biblio.utils.ContextMenuDefine;
 import fr.frodriguez.biblio.utils.IntentExtra;
 import fr.frodriguez.library.utils.StringUtils;
@@ -204,7 +202,7 @@ public class BookListActivity extends AppCompatActivity {
 
             // Create a popup for adding a new alement
             final AlertDialog popup = new AlertDialog.Builder(this)
-                    .setTitle(R.string.booksDialogTitle)
+                    .setTitle(R.string.addBook)
                     .setPositiveButton(R.string.save, null) // override below to prevent autoclosing
                     .setNegativeButton(R.string.cancel, null)
                     .setView(R.layout.dialog_add_book)
@@ -218,8 +216,7 @@ public class BookListActivity extends AppCompatActivity {
             popup.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(final DialogInterface dialog) {
-                    //TODO populate author and other lists
-                    //populateAuthorsSpinner((Dialog)dialog);
+                    populateAuthorsSpinner(popup);
 
                     // On save button
                     popup.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
@@ -325,18 +322,13 @@ public class BookListActivity extends AppCompatActivity {
         return false;
     }
 
-    // TODO liste des auteurs
-    private void populateAuthorsSpinner(Dialog dialog) {
-        Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookAuthors);
-        // récupérer les auteurs
+    //TODO populate author and other lists
+    private void populateAuthorsSpinner(AlertDialog dialog) {
+        // Get all authors in the database
         List<Author> authors = Author.getAll(Author.class);
-        // créer la liste
-        List<String> authorsStr = new ArrayList<>();
-        for(Author author : authors) {
-            authorsStr.add(author.getName());
-        }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, authorsStr);
-        spinner.setAdapter(adapter);
+        Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookAuthors);
+        SimpleSpinnerAdpater<Author> spinnerAdpater = new SimpleSpinnerAdpater<>(this, authors);
+        spinner.setAdapter(spinnerAdpater);
     }
 }

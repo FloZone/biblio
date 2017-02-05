@@ -14,7 +14,7 @@
     <!-- BOOKS -->
     <Button
         android:id="@+id/buttonBooks"
-        android:text="@string/mainButtonBooks"
+        android:text="@string/books"
         android:onClick="buttonBooks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
     <!-- AUTHORS -->
     <Button
         android:id="@+id/buttonAuthors"
-        android:text="@string/mainButtonAuthors"
+        android:text="@string/authors"
         android:onClick="buttonAuthors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
     <!-- FORMATS -->
     <Button
         android:id="@+id/buttonFormats"
-        android:text="@string/mainButtonFormats"
+        android:text="@string/formats"
         android:onClick="buttonFormats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
     <!-- SERIES -->
     <Button
         android:id="@+id/buttonSeries"
-        android:text="@string/mainButtonSeries"
+        android:text="@string/series"
         android:onClick="buttonSeries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
     <!-- THEMES -->
     <Button
         android:id="@+id/buttonThemes"
-        android:text="@string/mainButtonThemes"
+        android:text="@string/themes"
         android:onClick="buttonThemes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

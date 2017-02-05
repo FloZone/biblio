@@ -121,7 +121,7 @@ public class BookViewActivity extends AppCompatActivity {
     private void deleteBook() {
         // Confirmation dialog
         new AlertDialog.Builder(this)
-            .setMessage(R.string.booksDetailsDelete)
+            .setMessage(R.string.bookDeleteConfirmation)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {

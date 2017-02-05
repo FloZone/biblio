@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Biblio</string>
+
+    <!-- General -->
+    <string name="cancel">Annuler</string>
+    <string name="delete">Supprimer</string>
+    <string name="save">Sauvegarder</string>
+    <string name="edit">Modifier</string>
+    <string name="search">Rechercher</string>
+    <string name="add">Ajouter</string>
+    <string name="clear">Effacer</string>
+
+    <string name="name">Nom</string>
+    <string name="addElement">Ajouter un élément</string>
+    <string name="errorMustSetName">Vous devez renseigner un nom</string>
+    <string name="errorNameNotAvailable">Ce nom n\'est pas disponible</string>
+
+
+    <!-- Main menu -->
+    <string name="action1">action1</string>
+    <string name="action2">action2</string>
+    <string name="action3">action3</string>
+
+
+    <!-- MAIN ACTIVITY -->
+    <string name="mainTextHintSearch">Rechercher un livre</string>
+    <string name="books">Livres</string>
+    <string name="authors">Auteurs</string>
+    <string name="formats">Formats</string>
+    <string name="series">Séries</string>
+    <string name="themes">Thèmes</string>
+
+
+    <!-- BOOKS ACTIVITY -->
+    <string name="addBook">Ajouter un livre</string>
+
+    <string name="title">Titre</string>
+    <string name="subbtitle">Sous-titre</string>
+    <string name="author">Auteur</string>
+    <string name="year">Année</string>
+    <string name="number">Numéro</string>
+    <string name="bookshelfnumber">Côte</string>
+    <string name="description">Description</string>
+    <string name="got">Possédé</string>
+    <string name="rate">Note</string>
+
+    <string name="errorTitleSubtitleNotAvailable">Ce titre et ce sous-titre ne sont pas disponibles</string>
+    <string name="errorMustSetTitle">Vous devez renseigner un titre</string>
+
+    <string name="bookDeleteConfirmation">Voulez-vous supprimer ce livre ?</string>
+</resources>
