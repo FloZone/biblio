@@ -50,6 +50,14 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/subbtitle" />
+
+                <TextView
+                    android:id="@+id/booksDetailsAuthor"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/author" />
             </LinearLayout>
         </LinearLayout>
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -282,6 +283,15 @@ public class BookListActivity extends AppCompatActivity {
             editText = (EditText) popup.findViewById(R.id.dialogBookDescription);
             value = editText.getText().toString();
             if(!StringUtils.isEmpty(value)) book.setDescription(value);
+
+            //TODO author
+            // Author
+            Spinner spinner = (Spinner) popup.findViewById(R.id.dialogBookAuthors);
+            Author author = (Author) spinner.getSelectedItem();
+            if(author != null) {
+                Log.d("Croustade", "selected author: " + author.toString());
+                book.setAuthor(author);
+            }
 
             // Save the new element
             book.save();

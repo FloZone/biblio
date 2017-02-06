@@ -25,6 +25,7 @@ public class BookViewActivity extends AppCompatActivity {
 
     private TextView tvTitle;
     private TextView tvSubtitle;
+    private TextView tvAuthor;
     private TextView tvNumber;
     private TextView tvYear;
     private TextView tvBookshelfnumber;
@@ -53,6 +54,7 @@ public class BookViewActivity extends AppCompatActivity {
         // Get all textview
         tvTitle           = (TextView) findViewById(R.id.booksDetailsTitle);
         tvSubtitle        = (TextView) findViewById(R.id.booksDetailsSubtitle);
+        tvAuthor          = (TextView) findViewById(R.id.booksDetailsAuthor);
         tvNumber          = (TextView) findViewById(R.id.booksDetailsNumber);
         tvYear            = (TextView) findViewById(R.id.booksDetailsYear);
         tvBookshelfnumber = (TextView) findViewById(R.id.booksDetailsBookshelfnumber);
@@ -83,6 +85,15 @@ public class BookViewActivity extends AppCompatActivity {
         tvDescription.setText(book.getDescription());
         aSwitch.setChecked(book.getGot());
         ratingBar.setRating(book.getRate());
+
+        if(book.getAuthor() != null) {
+            tvAuthor.setText(book.getAuthor().display());
+        }
+        else {
+            //TODO valeur par défaut ou method StringUtils.getStringValue(String) qui retourne "" si null
+            tvAuthor.setText("undefined");
+        }
+
     }
 
     /**
