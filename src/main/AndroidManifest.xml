@@ -35,10 +35,10 @@
         <activity android:name=".element.book.BookViewActivity"/>
         <activity android:name=".element.book.BookEditActivity"/>
 
-        <activity android:name=".author.AuthorListActivity"/>
-        <activity android:name=".format.FormatListActivity"/>
-        <activity android:name=".serie.SerieListActivity"/>
-        <activity android:name=".theme.ThemeListActivity"/>
+        <activity android:name=".element.author.AuthorListActivity"/>
+        <activity android:name=".element.format.FormatListActivity"/>
+        <activity android:name=".element.serie.SerieListActivity"/>
+        <activity android:name=".element.theme.ThemeListActivity"/>
 
     </application>
 
