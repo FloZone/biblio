@@ -1,4 +1,4 @@
-package fr.frodriguez.biblio.model;
+package fr.frodriguez.biblio.model.utils;
 
 import android.support.annotation.NonNull;
 
@@ -8,11 +8,12 @@ import com.activeandroid.query.Select;
 
 import java.util.List;
 
+import fr.frodriguez.biblio.model.Book;
 import fr.frodriguez.library.utils.StringUtils;
 
-import static fr.frodriguez.biblio.model.Defines.VALUE_OK;
-import static fr.frodriguez.biblio.model.Defines.VALUE_ERROR_EMPTY;
-import static fr.frodriguez.biblio.model.Defines.VALUE_ERROR_USED;
+import static fr.frodriguez.biblio.model.utils.Defines.VALUE_OK;
+import static fr.frodriguez.biblio.model.utils.Defines.VALUE_ERROR_EMPTY;
+import static fr.frodriguez.biblio.model.utils.Defines.VALUE_ERROR_USED;
 
 /**
  * By Florian on 10/01/2017.
@@ -37,7 +38,7 @@ abstract public class SimpleNamedElement extends Model implements Comparable<Sim
         this.save();
     }
 
-    /**
+    /**TODO échanger le contenu de display et toString (+ logique)
      * Return information to display in a list
      * @return information to display
      */

@@ -13,11 +13,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.frodriguez.biblio.model.SimpleNamedElement;
+import fr.frodriguez.biblio.model.utils.SimpleNamedElement;
 
 /**
  * By Florian on 05/02/2017.
  */
+//TODO renommer en SimpleAdapter
+//TODO ordre alphabétique
 public class SimpleSpinnerAdpater<Element extends SimpleNamedElement> extends ArrayAdapter<Element> {
 
     private List<Element> elements;

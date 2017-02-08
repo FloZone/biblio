@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.frodriguez.biblio.model.SimpleNamedElement;
+import fr.frodriguez.biblio.model.utils.SimpleNamedElement;
 
 /**
  * By Florian on 10/01/2017.
@@ -22,6 +22,7 @@ import fr.frodriguez.biblio.model.SimpleNamedElement;
  * An adapter which manages a simple listview
  * @param <Element> the type of the element to manage which implement SimpleNamedElement
  */
+//TODO ordre alphabétique
 public class SimpleListviewAdapter<Element extends SimpleNamedElement> extends ArrayAdapter<Element> {
 
     // List of elements to display

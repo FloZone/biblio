@@ -26,7 +26,10 @@ import java.util.List;
 import fr.frodriguez.biblio.R;
 import fr.frodriguez.biblio.model.Author;
 import fr.frodriguez.biblio.model.Book;
-import fr.frodriguez.biblio.model.Defines;
+import fr.frodriguez.biblio.model.utils.Defines;
+import fr.frodriguez.biblio.model.Format;
+import fr.frodriguez.biblio.model.Serie;
+import fr.frodriguez.biblio.model.Theme;
 import fr.frodriguez.biblio.simpleelement.SimpleSpinnerAdpater;
 import fr.frodriguez.biblio.utils.ContextMenuDefine;
 import fr.frodriguez.biblio.utils.IntentExtra;
@@ -218,6 +221,10 @@ public class BookListActivity extends AppCompatActivity {
                 @Override
                 public void onShow(final DialogInterface dialog) {
                     populateAuthorsSpinner(popup);
+                    populateFormatsSpinner(popup);
+                    populateSeriesSpinner(popup);
+                    populateThemesSpinner(popup);
+
 
                     // On save button
                     popup.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
@@ -235,6 +242,36 @@ public class BookListActivity extends AppCompatActivity {
             popup.show();
         }
         return true;
+    }
+
+    /**
+     * Check if the title and subtitle are valid for a new book
+     * @param title
+     * @param subtitle
+     * @return true if the title and subtitle are valid
+     */
+    private boolean checkUserInput(EditText title, EditText subtitle) {
+        int titleAvailable = Book.isTitleAvailable(title.getText().toString());
+        int coupleAvailable = Book.isTitleAndSubtitleAvailable(title.getText().toString(), subtitle.getText().toString());
+
+        // If the title is available
+        if(titleAvailable == Defines.VALUE_OK) {
+            return true;
+        }
+        // If the title is empty
+        else if(titleAvailable == Defines.VALUE_ERROR_EMPTY) {
+            title.setError(getResources().getString(R.string.errorMustSetTitle));
+            return false;
+        }
+        // If the couple title/subtitle is available
+        else if(coupleAvailable == Defines.VALUE_OK) {
+            return true;
+        }
+        else if(coupleAvailable == Defines.VALUE_ERROR_USED) {
+            title.setError(getResources().getString(R.string.errorTitleSubtitleNotAvailable));
+            return false;
+        }
+        return false;
     }
 
     /**
@@ -284,13 +321,36 @@ public class BookListActivity extends AppCompatActivity {
             value = editText.getText().toString();
             if(!StringUtils.isEmpty(value)) book.setDescription(value);
 
-            //TODO author
             // Author
             Spinner spinner = (Spinner) popup.findViewById(R.id.dialogBookAuthors);
             Author author = (Author) spinner.getSelectedItem();
             if(author != null) {
-                Log.d("Croustade", "selected author: " + author.toString());
+                Log.d("Croustade", "Selected author: " + author.toString());
                 book.setAuthor(author);
+            }
+
+            // Format
+            spinner = (Spinner) popup.findViewById(R.id.dialogBookFormats);
+            Format format = (Format) spinner.getSelectedItem();
+            if(format != null) {
+                Log.d("Croustade", "Selected format: " + format.toString());
+                book.setFormat(format);
+            }
+
+            // Serie
+            spinner = (Spinner) popup.findViewById(R.id.dialogBookSeries);
+            Serie serie = (Serie) spinner.getSelectedItem();
+            if(serie != null) {
+                Log.d("Croustade", "Selected serie: " + serie.toString());
+                book.setSerie(serie);
+            }
+
+            // Theme
+            spinner = (Spinner) popup.findViewById(R.id.dialogBookThemes);
+            Theme theme = (Theme) spinner.getSelectedItem();
+            if(theme != null) {
+                Log.d("Croustade", "Selected theme: " + theme.toString());
+                book.setTheme(theme);
             }
 
             // Save the new element
@@ -302,43 +362,56 @@ public class BookListActivity extends AppCompatActivity {
         return false;
     }
 
-    /**
-     * Check if the title and subtitle are valid for a new book
-     * @param title
-     * @param subtitle
-     * @return true if the title and subtitle are valid
+    /**TODO donner uniquement le spinner en paramètre
+     * Fill the spinner with authors from the database
+     * @param dialog
      */
-    private boolean checkUserInput(EditText title, EditText subtitle) {
-        int titleAvailable = Book.isTitleAvailable(title.getText().toString());
-        int coupleAvailable = Book.isTitleAndSubtitleAvailable(title.getText().toString(), subtitle.getText().toString());
-
-        // If the title is available
-        if(titleAvailable == Defines.VALUE_OK) {
-            return true;
-        }
-        // If the title is empty
-        else if(titleAvailable == Defines.VALUE_ERROR_EMPTY) {
-            title.setError(getResources().getString(R.string.errorMustSetTitle));
-            return false;
-        }
-        // If the couple title/subtitle is available
-        else if(coupleAvailable == Defines.VALUE_OK) {
-            return true;
-        }
-        else if(coupleAvailable == Defines.VALUE_ERROR_USED) {
-            title.setError(getResources().getString(R.string.errorTitleSubtitleNotAvailable));
-            return false;
-        }
-        return false;
-    }
-
-    //TODO populate author and other lists
     private void populateAuthorsSpinner(AlertDialog dialog) {
         // Get all authors in the database
         List<Author> authors = Author.getAll(Author.class);
 
         Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookAuthors);
         SimpleSpinnerAdpater<Author> spinnerAdpater = new SimpleSpinnerAdpater<>(this, authors);
+        spinner.setAdapter(spinnerAdpater);
+    }
+
+    /**TODO donner uniquement le spinner en paramètre
+     * Fill the spinner with formats from the database
+     * @param dialog
+     */
+    private void populateFormatsSpinner(AlertDialog dialog) {
+        // Get all authors in the database
+        List<Format> formats = Format.getAll(Format.class);
+
+        Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookFormats);
+        SimpleSpinnerAdpater<Format> spinnerAdpater = new SimpleSpinnerAdpater<>(this, formats);
+        spinner.setAdapter(spinnerAdpater);
+    }
+
+    /**TODO donner uniquement le spinner en paramètre
+     * Fill the spinner with series from the database
+     * @param dialog
+     */
+    private void populateSeriesSpinner(AlertDialog dialog) {
+        // Get all authors in the database
+        List<Serie> series = Serie.getAll(Serie.class);
+
+        Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookSeries);
+        SimpleSpinnerAdpater<Serie> spinnerAdpater = new SimpleSpinnerAdpater<>(this, series);
+        spinner.setAdapter(spinnerAdpater);
+    }
+
+
+    /**TODO donner uniquement le spinner en paramètre
+     * Fill the spinner with themes from the database
+     * @param dialog
+     */
+    private void populateThemesSpinner(AlertDialog dialog) {
+        // Get all authors in the database
+        List<Theme> themes = Theme.getAll(Theme.class);
+
+        Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookThemes);
+        SimpleSpinnerAdpater<Theme> spinnerAdpater = new SimpleSpinnerAdpater<>(this, themes);
         spinner.setAdapter(spinnerAdpater);
     }
 }

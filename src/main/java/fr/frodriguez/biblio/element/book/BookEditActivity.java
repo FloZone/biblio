@@ -2,7 +2,6 @@ package fr.frodriguez.biblio.element.book;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -11,7 +10,7 @@ import android.widget.Switch;
 
 import fr.frodriguez.biblio.R;
 import fr.frodriguez.biblio.model.Book;
-import fr.frodriguez.biblio.model.Defines;
+import fr.frodriguez.biblio.model.utils.Defines;
 import fr.frodriguez.biblio.utils.IntentExtra;
 import fr.frodriguez.library.utils.MessageUtils;
 import fr.frodriguez.library.utils.StringUtils;

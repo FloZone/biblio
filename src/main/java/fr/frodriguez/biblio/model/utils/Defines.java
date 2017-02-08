@@ -1,4 +1,4 @@
-package fr.frodriguez.biblio.model;
+package fr.frodriguez.biblio.model.utils;
 
 /**
  * By Florian on 26/01/2017.

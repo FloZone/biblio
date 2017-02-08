@@ -20,8 +20,8 @@ import android.widget.ListView;
 import java.util.List;
 
 import fr.frodriguez.biblio.R;
-import fr.frodriguez.biblio.model.Defines;
-import fr.frodriguez.biblio.model.SimpleNamedElement;
+import fr.frodriguez.biblio.model.utils.Defines;
+import fr.frodriguez.biblio.model.utils.SimpleNamedElement;
 import fr.frodriguez.biblio.utils.ContextMenuDefine;
 
 /**

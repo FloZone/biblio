@@ -38,6 +38,9 @@
     <string name="title">Title</string>
     <string name="subbtitle">Subtitle</string>
     <string name="author">Author</string>
+    <string name="format">Format</string>
+    <string name="serie">Serie</string>
+    <string name="theme">Theme</string>
     <string name="year">Year</string>
     <string name="number">Number</string>
     <string name="bookshelfnumber">Bookshelf number</string>

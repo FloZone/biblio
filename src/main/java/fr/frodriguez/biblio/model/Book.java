@@ -3,16 +3,15 @@ package fr.frodriguez.biblio.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.activeandroid.query.From;
 import com.activeandroid.query.Select;
 
 import java.util.List;
 
 import fr.frodriguez.library.utils.StringUtils;
 
-import static fr.frodriguez.biblio.model.Defines.VALUE_OK;
-import static fr.frodriguez.biblio.model.Defines.VALUE_ERROR_EMPTY;
-import static fr.frodriguez.biblio.model.Defines.VALUE_ERROR_USED;
+import static fr.frodriguez.biblio.model.utils.Defines.VALUE_OK;
+import static fr.frodriguez.biblio.model.utils.Defines.VALUE_ERROR_EMPTY;
+import static fr.frodriguez.biblio.model.utils.Defines.VALUE_ERROR_USED;
 
 /**
  * Created by linux on 12/01/16.
@@ -38,12 +37,13 @@ public class Book extends Model {
     // relations
     @Column(name = "author")
     private Author author;
+    @Column(name = "format")
+    private Format format;
     @Column(name = "serie")
     private Serie serie;
     @Column(name = "theme")
     private Theme theme;
-    @Column(name = "format")
-    private Theme format;
+
 
     public String getTitle() {
         return title;
@@ -115,6 +115,14 @@ public class Book extends Model {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public Format getFormat() {
+        return format;
+    }
+
+    public void setFormat(Format format) {
+        this.format = format;
     }
 
     public Serie getSerie() {
