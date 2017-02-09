@@ -65,7 +65,7 @@ public class SimpleListviewAdapter<Element extends SimpleNamedElement> extends A
 
         // Set the display value of the element
         TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
-        textView.setText(displayedElements.get(position).display());
+        textView.setText(displayedElements.get(position).toString());
 
         return convertView;
     }

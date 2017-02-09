@@ -1,7 +1,7 @@
 package fr.frodriguez.biblio.model.utils;
 
 /**
- * By Florian on 26/01/2017.
+ * By FloZone on 26/01/2017.
  */
 
 public class Defines {

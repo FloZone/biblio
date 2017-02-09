@@ -49,4 +49,8 @@
     <string name="errorMustSetTitle">Vous devez renseigner un titre</string>
 
     <string name="bookDeleteConfirmation">Voulez-vous supprimer ce livre ?</string>
+    <string name="book">Livre</string>
+    <string name="format">Format</string>
+    <string name="serie">Série</string>
+    <string name="theme">Thème</string>
 </resources>

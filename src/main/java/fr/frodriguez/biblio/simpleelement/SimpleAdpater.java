@@ -18,13 +18,12 @@ import fr.frodriguez.biblio.model.utils.SimpleNamedElement;
 /**
  * By Florian on 05/02/2017.
  */
-//TODO renommer en SimpleAdapter
 //TODO ordre alphabétique
-public class SimpleSpinnerAdpater<Element extends SimpleNamedElement> extends ArrayAdapter<Element> {
+public class SimpleAdpater<Element extends SimpleNamedElement> extends ArrayAdapter<Element> {
 
     private List<Element> elements;
 
-    public SimpleSpinnerAdpater(Context context, List<Element> elements) {
+    public SimpleAdpater(Context context, List<Element> elements) {
         super(context, 0, elements);
         this.elements = new ArrayList<>(elements);
     }
@@ -66,7 +65,7 @@ public class SimpleSpinnerAdpater<Element extends SimpleNamedElement> extends Ar
         }
 
         TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
-        textView.setText(elements.get(position).display());
+        textView.setText(elements.get(position).toString());
 
         return convertView;
     }

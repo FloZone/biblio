@@ -16,9 +16,9 @@ import static fr.frodriguez.biblio.model.utils.Defines.VALUE_ERROR_EMPTY;
 import static fr.frodriguez.biblio.model.utils.Defines.VALUE_ERROR_USED;
 
 /**
- * By Florian on 10/01/2017.
+ * By FloZone on 10/01/2017.
  */
-
+@SuppressWarnings("WeakerAccess")
 abstract public class SimpleNamedElement extends Model implements Comparable<SimpleNamedElement> {
 
     @Column(name = "name", notNull = true)
@@ -31,19 +31,10 @@ abstract public class SimpleNamedElement extends Model implements Comparable<Sim
     /**
      * Update the name and save it to the database
      * @param name the new name to set
-     * @return true if updated successfully, false if not
      */
     public void updateName(String name) {
         this.name = name;
         this.save();
-    }
-
-    /**TODO échanger le contenu de display et toString (+ logique)
-     * Return information to display in a list
-     * @return information to display
-     */
-    public String display() {
-        return name;
     }
 
     /**
@@ -125,13 +116,22 @@ abstract public class SimpleNamedElement extends Model implements Comparable<Sim
     }
 
 
+
+    /**
+     * Return all object information
+     */
+    public String toDebugString() {
+        return this.getTableName() + "{id=" + this.getId() + ", name=" + this.name + "}";
+    }
+
+
     /********************
      * Override methods *
      ********************/
 
     @Override
     public String toString() {
-        return this.getTableName() + "{id=" + this.getId() + ", name=" + this.name + "}";
+        return name;
     }
 
     @Override

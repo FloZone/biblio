@@ -15,9 +15,10 @@ import fr.frodriguez.biblio.R;
 import fr.frodriguez.biblio.model.Book;
 import fr.frodriguez.biblio.utils.IntentExtra;
 import fr.frodriguez.library.utils.MessageUtils;
+import fr.frodriguez.library.utils.StringUtils;
 
 /**
- * Created by Florian Rodriguez on 07/02/16.
+ * By FloZone on 07/02/16.
  */
 public class BookViewActivity extends AppCompatActivity {
 
@@ -92,34 +93,10 @@ public class BookViewActivity extends AppCompatActivity {
         aSwitch.setChecked(book.getGot());
         ratingBar.setRating(book.getRate());
 
-        if(book.getAuthor() != null) {
-            tvAuthor.setText(book.getAuthor().display());
-        } else {
-            //TODO valeur par défaut ou method StringUtils.getStringValue(String) qui retourne "" si null
-            tvAuthor.setText("");
-        }
-
-        if(book.getFormat() != null) {
-            tvFormat.setText(book.getFormat().display());
-        } else {
-            //TODO valeur par défaut ou method StringUtils.getStringValue(String) qui retourne "" si null
-            tvFormat.setText("");
-        }
-
-        if(book.getSerie() != null) {
-            tvSerie.setText(book.getSerie().display());
-        } else {
-            //TODO valeur par défaut ou method StringUtils.getStringValue(String) qui retourne "" si null
-            tvSerie.setText("");
-        }
-
-        if(book.getTheme() != null) {
-            tvTheme.setText(book.getTheme().display());
-        } else {
-            //TODO valeur par défaut ou method StringUtils.getStringValue(String) qui retourne "" si null
-            tvTheme.setText("");
-        }
-
+        tvAuthor.setText(StringUtils.getValue(book.getAuthor().toString()));
+        tvFormat.setText(StringUtils.getValue(book.getFormat().toString()));
+        tvSerie.setText(StringUtils.getValue(book.getSerie().toString()));
+        tvTheme.setText(StringUtils.getValue(book.getTheme().toString()));
     }
 
     /**

@@ -16,7 +16,7 @@ import fr.frodriguez.library.utils.MessageUtils;
 import fr.frodriguez.library.utils.StringUtils;
 
 /**
- * Created by Florian Rodriguez on 21/02/16.
+ * By FloZone on 21/02/16.
  */
 public class BookEditActivity extends AppCompatActivity {
 
@@ -141,19 +141,19 @@ public class BookEditActivity extends AppCompatActivity {
 
     /**
      * Check if the title and subtitle are valid for a new book
-     * @param title
-     * @param subtitle
+     * @param etTitle editText containing the book title
+     * @param etSubtitle editText containing the book subtitle
      * @return true if the title and subtitle are valid
      */
-    private boolean checkUserInput(EditText title, EditText subtitle) {
+    private boolean checkUserInput(EditText etTitle, EditText etSubtitle) {
         // If there is no change on the title and subtitle
-        if(book.getTitle().equals(title.getText().toString())
-                && book.getSubtitle().equals(subtitle.getText().toString())) {
+        if(book.getTitle().equals(etTitle.getText().toString())
+                && book.getSubtitle().equals(etSubtitle.getText().toString())) {
             return true;
         }
 
-        int titleAvailable = Book.isTitleAvailable(title.getText().toString());
-        int coupleAvailable = Book.isTitleAndSubtitleAvailable(title.getText().toString(), subtitle.getText().toString());
+        int titleAvailable = Book.isTitleAvailable(etTitle.getText().toString());
+        int coupleAvailable = Book.isTitleAndSubtitleAvailable(etTitle.getText().toString(), etSubtitle.getText().toString());
 
         // If the title is available
         if(titleAvailable == Defines.VALUE_OK) {
@@ -161,7 +161,7 @@ public class BookEditActivity extends AppCompatActivity {
         }
         // If the title is empty
         else if(titleAvailable == Defines.VALUE_ERROR_EMPTY) {
-            title.setError(getResources().getString(R.string.errorMustSetTitle));
+            etTitle.setError(getResources().getString(R.string.errorMustSetTitle));
             return false;
         }
         // If the couple title/subtitle is available
@@ -170,7 +170,7 @@ public class BookEditActivity extends AppCompatActivity {
         }
         // If this couple title/subtitle is already used
         else if(coupleAvailable == Defines.VALUE_ERROR_USED) {
-            title.setError(getResources().getString(R.string.errorTitleSubtitleNotAvailable));
+            etTitle.setError(getResources().getString(R.string.errorTitleSubtitleNotAvailable));
             return false;
         }
         return false;

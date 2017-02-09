@@ -17,7 +17,7 @@ import fr.frodriguez.biblio.R;
 import fr.frodriguez.biblio.model.Book;
 
 /**
- * Created by Florian Rodriguez on 29/01/16.
+ * By FloZone on 29/01/16.
  */
 public class BookAdaptater extends ArrayAdapter<Book> {
 
@@ -52,7 +52,8 @@ public class BookAdaptater extends ArrayAdapter<Book> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             // Get the book layout
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.listview_book, parent, false);
@@ -98,7 +99,6 @@ public class BookAdaptater extends ArrayAdapter<Book> {
 
     /**
      * Filter the displayed list on the given filter value
-     * @param filter
      */
     public void filter(@NonNull String filter) {
         // Non case-sensitive filtering

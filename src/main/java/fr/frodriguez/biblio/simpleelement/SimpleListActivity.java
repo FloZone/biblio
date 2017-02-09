@@ -25,7 +25,7 @@ import fr.frodriguez.biblio.model.utils.SimpleNamedElement;
 import fr.frodriguez.biblio.utils.ContextMenuDefine;
 
 /**
- * By Florian on 11/01/2017.
+ * By FloZone on 11/01/2017.
  */
 
 /**

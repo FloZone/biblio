@@ -6,7 +6,7 @@ import fr.frodriguez.biblio.simpleelement.SimpleListActivity;
 import fr.frodriguez.biblio.model.Format;
 
 /**
- * By Florian on 08/01/2017.
+ * By FloZone on 08/01/2017.
  */
 
 public class FormatListActivity extends SimpleListActivity {

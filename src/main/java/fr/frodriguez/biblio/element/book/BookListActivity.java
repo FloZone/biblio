@@ -30,13 +30,13 @@ import fr.frodriguez.biblio.model.utils.Defines;
 import fr.frodriguez.biblio.model.Format;
 import fr.frodriguez.biblio.model.Serie;
 import fr.frodriguez.biblio.model.Theme;
-import fr.frodriguez.biblio.simpleelement.SimpleSpinnerAdpater;
+import fr.frodriguez.biblio.simpleelement.SimpleAdpater;
 import fr.frodriguez.biblio.utils.ContextMenuDefine;
 import fr.frodriguez.biblio.utils.IntentExtra;
 import fr.frodriguez.library.utils.StringUtils;
 
 /**
- * Created by linux on 07/01/16.
+ * By FloZone on 07/01/16.
  */
 public class BookListActivity extends AppCompatActivity {
 
@@ -49,7 +49,7 @@ public class BookListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
 
-        // Get the listview and populate it
+        // Get the books listview and populate it
         listView = (ListView) findViewById(R.id.listBooks);
         populateListView();
 
@@ -220,10 +220,10 @@ public class BookListActivity extends AppCompatActivity {
             popup.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(final DialogInterface dialog) {
-                    populateAuthorsSpinner(popup);
-                    populateFormatsSpinner(popup);
-                    populateSeriesSpinner(popup);
-                    populateThemesSpinner(popup);
+                    populateAuthorsSpinner((Spinner) popup.findViewById(R.id.dialogBookAuthors));
+                    populateFormatsSpinner((Spinner) popup.findViewById(R.id.dialogBookFormats));
+                    populateSeriesSpinner((Spinner) popup.findViewById(R.id.dialogBookSeries));
+                    populateThemesSpinner((Spinner) popup.findViewById(R.id.dialogBookSeries));
 
 
                     // On save button
@@ -246,13 +246,13 @@ public class BookListActivity extends AppCompatActivity {
 
     /**
      * Check if the title and subtitle are valid for a new book
-     * @param title
-     * @param subtitle
+     * @param etTitle editText containing the book title
+     * @param etSubtitle editText containing the book subtitle
      * @return true if the title and subtitle are valid
      */
-    private boolean checkUserInput(EditText title, EditText subtitle) {
-        int titleAvailable = Book.isTitleAvailable(title.getText().toString());
-        int coupleAvailable = Book.isTitleAndSubtitleAvailable(title.getText().toString(), subtitle.getText().toString());
+    private boolean checkUserInput(EditText etTitle, EditText etSubtitle) {
+        int titleAvailable = Book.isTitleAvailable(etTitle.getText().toString());
+        int coupleAvailable = Book.isTitleAndSubtitleAvailable(etTitle.getText().toString(), etSubtitle.getText().toString());
 
         // If the title is available
         if(titleAvailable == Defines.VALUE_OK) {
@@ -260,7 +260,7 @@ public class BookListActivity extends AppCompatActivity {
         }
         // If the title is empty
         else if(titleAvailable == Defines.VALUE_ERROR_EMPTY) {
-            title.setError(getResources().getString(R.string.errorMustSetTitle));
+            etTitle.setError(getResources().getString(R.string.errorMustSetTitle));
             return false;
         }
         // If the couple title/subtitle is available
@@ -268,7 +268,7 @@ public class BookListActivity extends AppCompatActivity {
             return true;
         }
         else if(coupleAvailable == Defines.VALUE_ERROR_USED) {
-            title.setError(getResources().getString(R.string.errorTitleSubtitleNotAvailable));
+            etTitle.setError(getResources().getString(R.string.errorTitleSubtitleNotAvailable));
             return false;
         }
         return false;
@@ -362,56 +362,52 @@ public class BookListActivity extends AppCompatActivity {
         return false;
     }
 
-    /**TODO donner uniquement le spinner en paramètre
+    /**
      * Fill the spinner with authors from the database
-     * @param dialog
+     * @param authorsSpinner the spinner which will contains the authors list
      */
-    private void populateAuthorsSpinner(AlertDialog dialog) {
+    private void populateAuthorsSpinner(Spinner authorsSpinner) {
         // Get all authors in the database
         List<Author> authors = Author.getAll(Author.class);
 
-        Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookAuthors);
-        SimpleSpinnerAdpater<Author> spinnerAdpater = new SimpleSpinnerAdpater<>(this, authors);
-        spinner.setAdapter(spinnerAdpater);
+        SimpleAdpater<Author> spinnerAdpater = new SimpleAdpater<>(this, authors);
+        authorsSpinner.setAdapter(spinnerAdpater);
     }
 
-    /**TODO donner uniquement le spinner en paramètre
+    /**
      * Fill the spinner with formats from the database
-     * @param dialog
+     * @param formatsSpinner the spinner which will contains the formats list
      */
-    private void populateFormatsSpinner(AlertDialog dialog) {
+    private void populateFormatsSpinner(Spinner formatsSpinner) {
         // Get all authors in the database
         List<Format> formats = Format.getAll(Format.class);
 
-        Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookFormats);
-        SimpleSpinnerAdpater<Format> spinnerAdpater = new SimpleSpinnerAdpater<>(this, formats);
-        spinner.setAdapter(spinnerAdpater);
+        SimpleAdpater<Format> spinnerAdpater = new SimpleAdpater<>(this, formats);
+        formatsSpinner.setAdapter(spinnerAdpater);
     }
 
-    /**TODO donner uniquement le spinner en paramètre
+    /**
      * Fill the spinner with series from the database
-     * @param dialog
+     * @param seriesSpinner the spinner which will contains the series list
      */
-    private void populateSeriesSpinner(AlertDialog dialog) {
+    private void populateSeriesSpinner(Spinner seriesSpinner) {
         // Get all authors in the database
         List<Serie> series = Serie.getAll(Serie.class);
 
-        Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookSeries);
-        SimpleSpinnerAdpater<Serie> spinnerAdpater = new SimpleSpinnerAdpater<>(this, series);
-        spinner.setAdapter(spinnerAdpater);
+        SimpleAdpater<Serie> spinnerAdpater = new SimpleAdpater<>(this, series);
+        seriesSpinner.setAdapter(spinnerAdpater);
     }
 
 
-    /**TODO donner uniquement le spinner en paramètre
+    /**
      * Fill the spinner with themes from the database
-     * @param dialog
+     * @param themesSpinner the spinner which will contains the themes list
      */
-    private void populateThemesSpinner(AlertDialog dialog) {
+    private void populateThemesSpinner(Spinner themesSpinner) {
         // Get all authors in the database
         List<Theme> themes = Theme.getAll(Theme.class);
 
-        Spinner spinner = (Spinner) dialog.findViewById(R.id.dialogBookThemes);
-        SimpleSpinnerAdpater<Theme> spinnerAdpater = new SimpleSpinnerAdpater<>(this, themes);
-        spinner.setAdapter(spinnerAdpater);
+        SimpleAdpater<Theme> spinnerAdpater = new SimpleAdpater<>(this, themes);
+        themesSpinner.setAdapter(spinnerAdpater);
     }
 }

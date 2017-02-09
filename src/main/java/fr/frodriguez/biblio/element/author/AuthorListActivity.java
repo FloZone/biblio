@@ -6,7 +6,7 @@ import fr.frodriguez.biblio.simpleelement.SimpleListActivity;
 import fr.frodriguez.biblio.model.Author;
 
 /**
- * Created by Florian Rodriguez on 02/03/16.
+ * By FloZone on 02/03/16.
  */
 
 public class AuthorListActivity extends SimpleListActivity {

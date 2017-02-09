@@ -6,7 +6,7 @@ import fr.frodriguez.biblio.simpleelement.SimpleListActivity;
 import fr.frodriguez.biblio.model.Serie;
 
 /**
- * By Florian on 19/01/2017.
+ * By FloZone on 19/01/2017.
  */
 
 public class SerieListActivity extends SimpleListActivity {
