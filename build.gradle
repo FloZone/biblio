@@ -1,43 +1,20 @@
 apply plugin: 'com.android.application'
 
-android {
-    compileSdkVersion 23
-    buildToolsVersion "24.0.0"
+project.setGlobalConfiguration(project)
 
+android {
     defaultConfig {
         applicationId "fr.frodriguez.biblio"
-        minSdkVersion 21
-        targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        debug {
-            applicationIdSuffix ".debug"
-            versionNameSuffix "-debug"
-            minifyEnabled false
-            debuggable true
-            jniDebuggable true
-            renderscriptDebuggable true
-        }
-
-        release {
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            zipAlignEnabled true
-            minifyEnabled true
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
-        }
+        manifestPlaceholders = [sharedUserId:"fr.frodriguez.id"]
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:design:23.1.0'
-    compile files('libs/activeandroid-3.1.0.jar')
+    implementation project(':libraries')
 
-    compile project(':libraries')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/activeandroid-3.1.0.jar')
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.0.0'
 }
